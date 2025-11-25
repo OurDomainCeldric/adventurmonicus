@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://bxp33ege8epxk"]
+[gd_scene load_steps=27 format=3 uid="uid://bxp33ege8epxk"]
 
 [ext_resource type="Script" uid="uid://bpjlq2oryy6t3" path="res://Scripts/Character/Player.gd" id="1_gdgf0"]
 [ext_resource type="AudioStream" uid="uid://ll11kwmepn3j" path="res://Audio/Hit_0.ogg" id="2_xo8ps"]
 [ext_resource type="Texture2D" uid="uid://btqlatabplef0" path="res://Sprites/Characters/Character_Man.tres" id="3_fcmex"]
 [ext_resource type="Script" uid="uid://7ud4vuoncm0g" path="res://Scripts/Character/CharacterVisual.gd" id="4_25bbb"]
 [ext_resource type="Script" uid="uid://5wkjuef45nvs" path="res://Scripts/Weapons/player_weapons.gd" id="5_cueqf"]
+[ext_resource type="Script" path="res://Scripts/Abilities/AbilityManager.gd" id="6_ability"]
 [ext_resource type="Script" uid="uid://coawsy5oshm3l" path="res://Scripts/Inventory/Inventory.gd" id="7_utp2y"]
 [ext_resource type="Script" uid="uid://cvbuijb20q207" path="res://Scripts/Items/ItemData.gd" id="8_25bbb"]
 [ext_resource type="PackedScene" uid="uid://knt5gawodd5f" path="res://Scenes/UI/health_bar.tscn" id="8_h1n2f"]
@@ -12,6 +13,13 @@
 [ext_resource type="Resource" uid="uid://cw3wh68625y84" path="res://Items/Consumables/HealthPotion.tres" id="11_xccyk"]
 [ext_resource type="Script" path="res://Scripts/UI/InventoryUI.gd" id="12_01b8d"]
 [ext_resource type="PackedScene" uid="uid://cu5o5xbasd1xp" path="res://Scenes/UI/inventory_slot.tscn" id="12_cueqf"]
+[ext_resource type="Script" path="res://Scripts/UI/PlayerHUD.gd" id="13_newhud"]
+[ext_resource type="Script" path="res://Scripts/UI/SpellBarUI.gd" id="14_spellbar"]
+[ext_resource type="PackedScene" uid="uid://spell_bar_slot" path="res://Scenes/UI/spell_bar_slot.tscn" id="15_spellslot"]
+[ext_resource type="Script" path="res://Scripts/UI/FullInventoryUI.gd" id="16_fullinv"]
+[ext_resource type="PackedScene" uid="uid://equipment_slot_ui" path="res://Scenes/UI/equipment_slot.tscn" id="17_equipslot"]
+[ext_resource type="Script" path="res://Scripts/UI/ManaBar.gd" id="18_manabar"]
+[ext_resource type="Script" path="res://Scripts/UI/StaminaBar.gd" id="19_staminabar"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bo1nx"]
 radius = 6.0
@@ -22,6 +30,54 @@ bg_color = Color(0.29, 0.053166665, 0, 0.50980395)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_01b8d"]
 bg_color = Color(0.29, 0.16921501, 0.14209999, 0.49803922)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mana_bg"]
+bg_color = Color(0.1, 0.1, 0.15, 0.8)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.3, 0.4, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mana_fill"]
+bg_color = Color(0.2, 0.5, 1, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.7, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stamina_bg"]
+bg_color = Color(0.1, 0.15, 0.1, 0.8)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.4, 0.3, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stamina_fill"]
+bg_color = Color(0.3, 0.8, 0.3, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5, 1, 0.5, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [sub_resource type="LabelSettings" id="LabelSettings_01b8d"]
 font_size = 20
@@ -58,6 +114,20 @@ position = Vector2(0, -4)
 script = ExtResource("5_cueqf")
 
 [node name="HealthBar" parent="." instance=ExtResource("8_h1n2f")]
+position = Vector2(0, 2)
+
+[node name="ManaBarWorld" type="ProgressBar" parent="."]
+visible = false
+offset_left = -7.0
+offset_top = -16.0
+offset_right = 7.0
+offset_bottom = -14.0
+theme_override_styles/background = SubResource("StyleBoxFlat_mana_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_mana_fill")
+max_value = 100.0
+value = 100.0
+show_percentage = false
+script = ExtResource("18_manabar")
 
 [node name="Inventory" type="Node" parent="."]
 script = ExtResource("7_utp2y")
@@ -66,92 +136,164 @@ ExtResource("9_cueqf"): 1,
 ExtResource("11_xccyk"): 5
 })
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="AbilityManager" type="Node" parent="."]
+script = ExtResource("6_ability")
 
-[node name="Inventory" type="Panel" parent="HUD" node_paths=PackedStringArray("slots")]
-anchors_preset = 2
+[node name="NewPlayerHUD" type="CanvasLayer" parent="."]
+script = ExtResource("13_newhud")
+
+[node name="SpellBar" type="HBoxContainer" parent="NewPlayerHUD"]
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 30.0
-offset_top = -244.0
-offset_right = 246.0
-offset_bottom = -28.0
+offset_left = -200.0
+offset_top = -90.0
+offset_right = 200.0
+offset_bottom = -10.0
+grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_25bbb")
-script = ExtResource("12_01b8d")
-slots = [NodePath("Slots/InventorySlot"), NodePath("Slots/InventorySlot2"), NodePath("Slots/InventorySlot3"), NodePath("Slots/InventorySlot4"), NodePath("Slots/InventorySlot5"), NodePath("Slots/InventorySlot6"), NodePath("Slots/InventorySlot7"), NodePath("Slots/InventorySlot8"), NodePath("Slots/InventorySlot9")]
+theme_override_constants/separation = 10
+alignment = 1
+script = ExtResource("14_spellbar")
+slot_scene = ExtResource("15_spellslot")
+num_slots = 5
 
-[node name="Slots" type="GridContainer" parent="HUD/Inventory"]
+[node name="StaminaBarHUD" type="ProgressBar" parent="NewPlayerHUD"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -15.0
+offset_right = 100.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_stamina_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_stamina_fill")
+max_value = 100.0
+value = 100.0
+show_percentage = false
+script = ExtResource("19_staminabar")
+
+[node name="FullInventory" type="Control" parent="NewPlayerHUD"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_fullinv")
+
+[node name="DarkBackground" type="ColorRect" parent="NewPlayerHUD/FullInventory"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 7.0
-offset_top = 5.0
-offset_right = -5.0
-offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/h_separation = 6
-theme_override_constants/v_separation = 6
-columns = 3
+color = Color(0, 0, 0, 0.7)
 
-[node name="InventorySlot" parent="HUD/Inventory/Slots" instance=ExtResource("12_cueqf")]
-layout_mode = 2
-
-[node name="InventorySlot2" parent="HUD/Inventory/Slots" instance=ExtResource("12_cueqf")]
-layout_mode = 2
-
-[node name="InventorySlot3" parent="HUD/Inventory/Slots" instance=ExtResource("12_cueqf")]
-layout_mode = 2
-
-[node name="InventorySlot4" parent="HUD/Inventory/Slots" instance=ExtResource("12_cueqf")]
-layout_mode = 2
-
-[node name="InventorySlot5" parent="HUD/Inventory/Slots" instance=ExtResource("12_cueqf")]
-layout_mode = 2
-
-[node name="InventorySlot6" parent="HUD/Inventory/Slots" instance=ExtResource("12_cueqf")]
-layout_mode = 2
-
-[node name="InventorySlot7" parent="HUD/Inventory/Slots" instance=ExtResource("12_cueqf")]
-layout_mode = 2
-
-[node name="InventorySlot8" parent="HUD/Inventory/Slots" instance=ExtResource("12_cueqf")]
-layout_mode = 2
-
-[node name="InventorySlot9" parent="HUD/Inventory/Slots" instance=ExtResource("12_cueqf")]
-layout_mode = 2
-
-[node name="ItemInfoPanel" type="Panel" parent="HUD"]
-offset_left = 33.0
-offset_top = 735.0
-offset_right = 232.0
-offset_bottom = 824.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_01b8d")
-
-[node name="ItemName" type="Label" parent="HUD/ItemInfoPanel"]
+[node name="MainPanel" type="Panel" parent="NewPlayerHUD/FullInventory"]
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 4.0
-offset_bottom = 59.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -320.0
+offset_right = 450.0
+offset_bottom = 320.0
 grow_horizontal = 2
-text = "Item Name
-"
-label_settings = SubResource("LabelSettings_01b8d")
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_25bbb")
 
-[node name="ItemDescriptionText" type="Label" parent="HUD/ItemInfoPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="NewPlayerHUD/FullInventory/MainPanel"]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = -64.0
 grow_horizontal = 2
-grow_vertical = 0
-text = "Item description text displays the description of the item"
-label_settings = SubResource("LabelSettings_xccyk")
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NewPlayerHUD/FullInventory/MainPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="LeftSide" type="VBoxContainer" parent="NewPlayerHUD/FullInventory/MainPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="InventoryLabel" type="Label" parent="NewPlayerHUD/FullInventory/MainPanel/MarginContainer/HBoxContainer/LeftSide"]
+layout_mode = 2
+text = "INVENTORY"
+label_settings = SubResource("LabelSettings_01b8d")
+horizontal_alignment = 1
+
+[node name="InventoryGrid" type="GridContainer" parent="NewPlayerHUD/FullInventory/MainPanel/MarginContainer/HBoxContainer/LeftSide"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
+columns = 6
+
+[node name="RightSide" type="VBoxContainer" parent="NewPlayerHUD/FullInventory/MainPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+custom_minimum_size = Vector2(180, 0)
+theme_override_constants/separation = 20
+
+[node name="EquipmentLabel" type="Label" parent="NewPlayerHUD/FullInventory/MainPanel/MarginContainer/HBoxContainer/RightSide"]
+layout_mode = 2
+text = "EQUIPMENT"
+label_settings = SubResource("LabelSettings_01b8d")
+horizontal_alignment = 1
+
+[node name="WeaponSlot" parent="NewPlayerHUD/FullInventory/MainPanel/MarginContainer/HBoxContainer/RightSide" instance=ExtResource("17_equipslot")]
+layout_mode = 2
+slot_type = 0
+
+[node name="ShieldSlot" parent="NewPlayerHUD/FullInventory/MainPanel/MarginContainer/HBoxContainer/RightSide" instance=ExtResource("17_equipslot")]
+layout_mode = 2
+slot_type = 1
+
+[node name="InfoPanel" type="Panel" parent="NewPlayerHUD/FullInventory"]
+visible = false
+custom_minimum_size = Vector2(200, 100)
+offset_right = 200.0
+offset_bottom = 100.0
+
+[node name="MarginContainer" type="MarginContainer" parent="NewPlayerHUD/FullInventory/InfoPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NewPlayerHUD/FullInventory/InfoPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="ItemName" type="Label" parent="NewPlayerHUD/FullInventory/InfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+
+[node name="ItemDescription" type="Label" parent="NewPlayerHUD/FullInventory/InfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
 autowrap_mode = 2

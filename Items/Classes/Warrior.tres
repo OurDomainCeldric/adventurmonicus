@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="PlayerClass" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Character/PlayerClass.gd" id="1_playerclass"]
+[ext_resource type="Resource" path="res://Items/Weapons/Axe.tres" id="2_axe"]
+[ext_resource type="Resource" path="res://Items/Abilities/BerserkerRage.tres" id="3_rage"]
+[ext_resource type="Resource" path="res://Items/Abilities/Cleave.tres" id="4_cleave"]
+[ext_resource type="Resource" path="res://Items/Abilities/WarCry.tres" id="5_warcry"]
+[ext_resource type="Resource" path="res://Items/Abilities/SecondWind.tres" id="6_secondwind"]
+
+[resource]
+script = ExtResource("1_playerclass")
+player_class_name = "Warrior"
+description = "A mighty fighter specializing in heavy melee combat. High health and devastating physical attacks."
+strength = 15
+agility = 6
+intelligence = 4
+stamina = 15
+starting_hp = 125
+max_hp = 125
+starting_mana = 0
+max_mana = 0
+mana_regen_rate = 0.0
+move_speed = 35.0
+weight_limit = 200.0
+max_stamina = 200
+stamina_regen_rate = 25.0
+starting_weapon = ExtResource("2_axe")
+ability_descriptions = Array[String](["Berserker Rage - Increased damage and speed", "Cleave - Hit multiple enemies", "War Cry - Stun nearby foes", "Second Wind - Restore health in combat"])
+abilities = Array[AbilityData]([ExtResource("3_rage"), ExtResource("4_cleave"), ExtResource("5_warcry"), ExtResource("6_secondwind")])

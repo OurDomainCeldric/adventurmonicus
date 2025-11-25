@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Abilities/LayOnHandsAbility.gd" id="1"]
+[ext_resource type="Texture2D" path="res://Sprites/UI/Ability_LayOnHands.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+ability_name = "Lay on Hands"
+description = "Heal self or allies"
+icon = ExtResource("2")
+cooldown = 20.0
+mana_cost = 25
+ability_type = 0

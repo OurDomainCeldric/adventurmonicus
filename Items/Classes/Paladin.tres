@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="PlayerClass" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Character/PlayerClass.gd" id="1_playerclass"]
+[ext_resource type="Resource" path="res://Items/Weapons/Sword.tres" id="2_sword"]
+[ext_resource type="Resource" path="res://Items/Shield/Shield.tres" id="3_shield"]
+[ext_resource type="Resource" path="res://Items/Abilities/HolyStrike.tres" id="4_holystrike"]
+[ext_resource type="Resource" path="res://Items/Abilities/DivineShield.tres" id="5_divineshield"]
+[ext_resource type="Resource" path="res://Items/Abilities/LayOnHands.tres" id="6_layonhands"]
+
+[resource]
+script = ExtResource("1_playerclass")
+player_class_name = "Paladin"
+description = "A holy knight combining martial prowess with divine magic. Balanced offense and defense with healing abilities."
+strength = 12
+agility = 8
+intelligence = 8
+stamina = 12
+starting_hp = 110
+max_hp = 110
+starting_mana = 80
+max_mana = 80
+mana_regen_rate = 9.0
+move_speed = 38.0
+weight_limit = 170.0
+max_stamina = 170
+stamina_regen_rate = 22.0
+starting_weapon = ExtResource("2_sword")
+starting_shield = ExtResource("3_shield")
+ability_descriptions = Array[String](["Holy Strike - Blessed melee attack", "Divine Shield - Temporary damage reduction", "Lay on Hands - Heal self or allies"])
+abilities = Array[AbilityData]([ExtResource("4_holystrike"), ExtResource("5_divineshield"), ExtResource("6_layonhands")])

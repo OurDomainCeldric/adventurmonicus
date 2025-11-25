@@ -1,0 +1,103 @@
+[gd_scene load_steps=6 format=3 uid="uid://dp5020aoxctbr"]
+
+[ext_resource type="Script" path="res://Scripts/UI/class_selection.gd" id="1_class_selection"]
+[ext_resource type="Resource" path="res://Items/Classes/Paladin.tres" id="2_paladin"]
+[ext_resource type="Resource" path="res://Items/Classes/Wizard.tres" id="3_wizard"]
+[ext_resource type="Resource" path="res://Items/Classes/Warrior.tres" id="4_warrior"]
+[ext_resource type="Resource" path="res://Items/Classes/Ranger.tres" id="5_ranger"]
+
+[node name="ClassSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_class_selection")
+paladin_class = ExtResource("2_paladin")
+wizard_class = ExtResource("3_wizard")
+warrior_class = ExtResource("4_warrior")
+ranger_class = ExtResource("5_ranger")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1, 0.1, 0.15, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "SELECT YOUR CLASS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ClassButtons" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PaladinButton" type="Button" parent="MarginContainer/VBoxContainer/ClassButtons"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+text = "PALADIN"
+
+[node name="WizardButton" type="Button" parent="MarginContainer/VBoxContainer/ClassButtons"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+text = "WIZARD"
+
+[node name="WarriorButton" type="Button" parent="MarginContainer/VBoxContainer/ClassButtons"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+text = "WARRIOR"
+
+[node name="RangerButton" type="Button" parent="MarginContainer/VBoxContainer/ClassButtons"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+text = "RANGER"
+
+[node name="ClassDescription" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Hover over a class to see details"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="ClassStats" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Stats will appear here"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ClassAbilities" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Abilities will appear here"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ConfirmButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "CONFIRM SELECTION"

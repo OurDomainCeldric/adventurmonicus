@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="PlayerClass" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Character/PlayerClass.gd" id="1_playerclass"]
+[ext_resource type="Resource" path="res://Items/Weapons/Bow.tres" id="2_bow"]
+[ext_resource type="Resource" path="res://Items/Abilities/MultiShot.tres" id="3_multishot"]
+[ext_resource type="Resource" path="res://Items/Abilities/Evasion.tres" id="4_evasion"]
+[ext_resource type="Resource" path="res://Items/Abilities/HuntersMark.tres" id="5_mark"]
+
+[resource]
+script = ExtResource("1_playerclass")
+player_class_name = "Ranger"
+description = "A swift and deadly archer, striking from afar. High mobility and ranged damage."
+strength = 8
+agility = 15
+intelligence = 6
+stamina = 11
+starting_hp = 90
+max_hp = 90
+starting_mana = 0
+max_mana = 0
+mana_regen_rate = 0.0
+move_speed = 46.6
+weight_limit = 160.0
+max_stamina = 160
+stamina_regen_rate = 21.0
+starting_weapon = ExtResource("2_bow")
+ability_descriptions = Array[String](["Multi-Shot - Fire multiple arrows", "Evasion - Dodge incoming attacks", "Hunter's Mark - Mark enemy for bonus damage"])
+abilities = Array[AbilityData]([ExtResource("3_multishot"), ExtResource("4_evasion"), ExtResource("5_mark")])

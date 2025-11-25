@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Abilities/DivineShieldAbility.gd" id="1"]
+[ext_resource type="Texture2D" path="res://Sprites/UI/Ability_DivineShield.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+ability_name = "Divine Shield"
+description = "Temporary damage reduction"
+icon = ExtResource("2")
+cooldown = 12.0
+mana_cost = 15
+ability_type = 3

@@ -1,0 +1,142 @@
+[gd_scene load_steps=5 format=3 uid="uid://player_hud"]
+
+[ext_resource type="Script" path="res://Scripts/UI/SpellBarUI.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://spell_bar_slot" path="res://Scenes/UI/spell_bar_slot.tscn" id="2"]
+[ext_resource type="Script" path="res://Scripts/UI/FullInventoryUI.gd" id="3"]
+[ext_resource type="PackedScene" uid="uid://equipment_slot_ui" path="res://Scenes/UI/equipment_slot.tscn" id="4"]
+
+[ext_resource type="Script" path="res://Scripts/UI/PlayerHUD.gd" id="5"]
+
+[node name="PlayerHUD" type="CanvasLayer"]
+script = ExtResource("5")
+
+[node name="SpellBar" type="HBoxContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -80.0
+offset_right = 160.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 8
+alignment = 1
+script = ExtResource("1")
+slot_scene = ExtResource("2")
+num_slots = 5
+
+[node name="FullInventory" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3")
+
+[node name="DarkBackground" type="ColorRect" parent="FullInventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="MainPanel" type="Panel" parent="FullInventory"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -300.0
+offset_right = 400.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="FullInventory/MainPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FullInventory/MainPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="LeftSide" type="VBoxContainer" parent="FullInventory/MainPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="InventoryLabel" type="Label" parent="FullInventory/MainPanel/MarginContainer/HBoxContainer/LeftSide"]
+layout_mode = 2
+text = "INVENTORY"
+horizontal_alignment = 1
+
+[node name="InventoryGrid" type="GridContainer" parent="FullInventory/MainPanel/MarginContainer/HBoxContainer/LeftSide"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 5
+
+[node name="RightSide" type="VBoxContainer" parent="FullInventory/MainPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="EquipmentLabel" type="Label" parent="FullInventory/MainPanel/MarginContainer/HBoxContainer/RightSide"]
+layout_mode = 2
+text = "EQUIPMENT"
+horizontal_alignment = 1
+
+[node name="WeaponSlot" parent="FullInventory/MainPanel/MarginContainer/HBoxContainer/RightSide" instance=ExtResource("4")]
+layout_mode = 2
+slot_type = 0
+
+[node name="ShieldSlot" parent="FullInventory/MainPanel/MarginContainer/HBoxContainer/RightSide" instance=ExtResource("4")]
+layout_mode = 2
+slot_type = 1
+
+[node name="InfoPanel" type="Panel" parent="FullInventory"]
+visible = false
+custom_minimum_size = Vector2(200, 100)
+offset_right = 200.0
+offset_bottom = 100.0
+
+[node name="MarginContainer" type="MarginContainer" parent="FullInventory/InfoPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FullInventory/InfoPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="ItemName" type="Label" parent="FullInventory/InfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+
+[node name="ItemDescription" type="Label" parent="FullInventory/InfoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+autowrap_mode = 2

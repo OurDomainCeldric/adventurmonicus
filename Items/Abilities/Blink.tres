@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Abilities/BlinkAbility.gd" id="1"]
+[ext_resource type="Texture2D" path="res://Sprites/UI/Ability_Blink.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+ability_name = "Blink"
+description = "Teleport a short distance"
+icon = ExtResource("2")
+cooldown = 8.0
+mana_cost = 30
+ability_type = 0

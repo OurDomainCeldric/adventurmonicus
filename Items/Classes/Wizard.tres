@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="PlayerClass" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Character/PlayerClass.gd" id="1_playerclass"]
+[ext_resource type="Resource" path="res://Items/Abilities/Fireball.tres" id="2_fireball"]
+[ext_resource type="Resource" path="res://Items/Abilities/IceSpike.tres" id="3_icespike"]
+[ext_resource type="Resource" path="res://Items/Abilities/Blink.tres" id="4_blink"]
+[ext_resource type="Resource" path="res://Items/Abilities/ManaShield.tres" id="5_manashield"]
+
+[resource]
+script = ExtResource("1_playerclass")
+player_class_name = "Wizard"
+description = "A master of arcane arts, wielding powerful magic at range. Fragile but devastating."
+strength = 5
+agility = 8
+intelligence = 15
+stamina = 6
+starting_hp = 75
+max_hp = 75
+starting_mana = 150
+max_mana = 150
+mana_regen_rate = 12.5
+move_speed = 43.7
+weight_limit = 110.0
+max_stamina = 110
+stamina_regen_rate = 16.0
+ability_descriptions = Array[String](["Fireball - Explosive ranged attack", "Ice Spike - Freezing projectile", "Blink - Short range teleport", "Mana Shield - Convert mana to defense"])
+abilities = Array[AbilityData]([ExtResource("2_fireball"), ExtResource("3_icespike"), ExtResource("4_blink"), ExtResource("5_manashield")])
